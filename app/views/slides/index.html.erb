@@ -18,7 +18,7 @@
     <% @slides.each do |slide| %>
       <tr>
         <td><%= slide.title %></td>
-        <td><%= slide.content %></td>
+        <td><%= raw slide.content %></td>
         <td><%= slide.previous %></td>
         <td><%= slide.next %></td>
         <td><%= slide.number %></td>

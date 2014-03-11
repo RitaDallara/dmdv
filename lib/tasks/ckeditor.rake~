@@ -1,0 +1,6 @@
+namespace :ckeditor do
+  desc "TODO"
+  task create_nondigest_assets: :environment do
+  end
+
+end

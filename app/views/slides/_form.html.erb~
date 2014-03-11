@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :content %><br>
-    <%= f.cktext_area :content, :value => 'Default value', :id => 'id_textarea' %>
+    <%= f.cktext_area :content, :value => 'Default value', :id => 'id_textarea', :ckeditor => {:uiColor => '#AADC6E', :toolbar => 'mini', :page, :info, :cols => 40} %>
   </div>
   <div class="field">
     <%= f.label :previous %><br>
