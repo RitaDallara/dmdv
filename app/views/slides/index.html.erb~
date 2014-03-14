@@ -32,7 +32,7 @@
 
 <ul class="sortable">
 <% @slides.each do |slide| %>
-	  <section style=" -moz-transform: scale(0.5);">
+	  <section style=" -moz-transform: scale(0.2);">
 	  <li><%= raw slide.content %></li>
 	  </section>
 	   
