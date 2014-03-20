@@ -1,4 +1,6 @@
 class SlidesController < ApplicationController
+  before_action :set_course
+  before_action :set_lesson
   before_action :set_slide, only: [:show, :edit, :update, :destroy]
 
   # GET /slides
@@ -70,5 +72,14 @@ class SlidesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def slide_params
       params.require(:slide).permit(:title, :content, :previous, :next, :number)
+    end
+    
+        
+    def set_course
+      @course = Course.find params[:course_id]
+    end
+    
+    def set_lesson
+      @lesson = Lesson.find params[:lesson_id]
     end
 end

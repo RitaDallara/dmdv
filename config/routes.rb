@@ -2,11 +2,11 @@ Dmdv::Application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   resources :users
 
-  resources :courses
-
-  resources :lessons
-
-  resources :slides
+  resources :courses do
+      resources :lessons do
+	  resources :slides
+      end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

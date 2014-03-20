@@ -25,5 +25,5 @@
   <%= @slide.number %>
 </p>
 
-<%= link_to 'Edit', edit_slide_path(@slide) %> |
-<%= link_to 'Back', slides_path %>
+<%= link_to 'Edit', edit_course_lesson_slide_path(@course,@lesson,@slide) %> |
+<%= link_to 'Back', course_lesson_slides_path(@course,@lesson) %>

@@ -1,10 +1,11 @@
 class LessonsController < ApplicationController
+  before_action :set_course
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
 
   # GET /lessons
   # GET /lessons.json
   def index
-    @lessons = Lesson.all
+     @lessons = Lesson.all
   end
 
   # GET /lessons/1
@@ -70,5 +71,9 @@ class LessonsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def lesson_params
       params.require(:lesson).permit(:title)
+    end
+    
+    def set_course
+       @course = Course.find params[:course_id]
     end
 end

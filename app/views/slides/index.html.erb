@@ -14,21 +14,7 @@
     </tr>
   </thead>
 
-  <!--tbody class="sortable">
-    <% @slides.each do |slide| %>
-	  <tr>
-	    <td><%= slide.title %></td>
-	    <td><%= raw slide.content %></td>
-	    <td><%= slide.previous %></td>
-	    <td><%= slide.next %></td>
-	    <td><%= slide.number %></td>
-	    <td><%= link_to 'Show', slide %></td>
-	    <td><%= link_to 'Edit', edit_slide_path(slide) %></td>
-	    <td><%= link_to 'Destroy', slide, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-	  </tr>
-    <% end %>
-  </tbody>
-</table-->
+
 
 <ul class="sortable">
 <% @slides.each do |slide| %>
@@ -49,4 +35,4 @@
 
 <br>
 
-<%= link_to 'New Slide', new_slide_path %>
+<%= link_to 'New Slide', new_course_lesson_slide_path(@course,@lesson) %>
