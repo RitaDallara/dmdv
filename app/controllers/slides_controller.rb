@@ -16,7 +16,7 @@ class SlidesController < ApplicationController
 
   # GET /slides/new
   def new
-    @slide = Slide.new
+    @slide = Slide.new(:lesson => @lesson)
   end
 
   # GET /slides/1/edit
@@ -27,10 +27,12 @@ class SlidesController < ApplicationController
   # POST /slides.json
   def create
     @slide = Slide.new(slide_params)
+    
+    #@slide.position = 1
 
     respond_to do |format|
       if @slide.save
-        format.html { redirect_to @slide, notice: 'Slide was successfully created.' }
+        format.html { redirect_to(course_lesson_slide_path(@course,@lesson,@slide), notice: 'Slide was successfully created.') }
         format.json { render action: 'show', status: :created, location: @slide }
       else
         format.html { render action: 'new' }
@@ -44,7 +46,7 @@ class SlidesController < ApplicationController
   def update
     respond_to do |format|
       if @slide.update(slide_params)
-        format.html { redirect_to @slide, notice: 'Slide was successfully updated.' }
+        format.html { redirect_to(course_lesson_slide_path(@course,@lesson,@slide), notice: 'Slide was successfully updated.') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -58,7 +60,7 @@ class SlidesController < ApplicationController
   def destroy
     @slide.destroy
     respond_to do |format|
-      format.html { redirect_to slides_url }
+      format.html { redirect_to course_lesson_slides_path(@course,@lesson) }
       format.json { head :no_content }
     end
   end
@@ -71,7 +73,7 @@ class SlidesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def slide_params
-      params.require(:slide).permit(:title, :content, :previous, :next, :number)
+      params.require(:slide).permit(:lesson_id, :title, :content, :previous, :next, :number, :position)
     end
     
         
