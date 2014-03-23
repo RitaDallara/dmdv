@@ -17,9 +17,11 @@
 
 
 <ul class="sortable">
-<% @slides.each do |slide| %>
+<% @slides.order("position").each do |slide| %>
 	  <section style=" -moz-transform: scale(0.5);">
 	  <li><%= raw slide.content %></li>
+	  <li><%= slide.position %></li>
+	  <li><%= link_to 'Destroy', [@course,@lesson,slide], method: :delete, data: { confirm: 'Are you sure?' } %></li>
 	  </section>
 	   
     <% end %>

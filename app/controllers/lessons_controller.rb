@@ -29,7 +29,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @lesson.save
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
+        format.html { redirect_to(course_lesson_path(@course,@lesson), notice: 'Lesson was successfully created.') }
         format.json { render action: 'show', status: :created, location: @lesson }
       else
         format.html { render action: 'new' }
