@@ -46,7 +46,7 @@ $.fn.sortable = function(options) {
 			dragging.removeClass('sortable-dragging').show();
 			placeholders.detach();
 			if (index != dragging.index()) {
-				alert("dragging"+ dragging.index());
+				alert("dragging"+dragging.index);
 				alert("index" + index);
 				items.parent().trigger('sortupdate', {item: dragging});
 			}

@@ -5,7 +5,7 @@ $(document).ready(function(){
 
     $('.sortable').sortable().bind('sortupdate',function(){
 
-  alert("index" + $(this).data("sortable"));
+  alert("index" + $(this).data());
  });
 });
 
