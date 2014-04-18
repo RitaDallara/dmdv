@@ -2,7 +2,7 @@ Dmdv::Application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   resources :users
  
- scope "/courses/(:id)/lessons/(:id)/" do
+ scope "/courses/(:id)/lessons/(:id)/slides" do
 	get "relocate" => 'lessons#relocate'
   end
   resources :courses do

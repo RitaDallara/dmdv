@@ -1,11 +1,12 @@
 class LessonsController < ApplicationController
   before_action :set_course
-  before_action :set_lesson, only: [:show, :edit, :update, :destroy]
+  before_action :set_lesson, only: [:show, :edit, :update, :destroy, :relocate]
 
   # GET /lessons
   # GET /lessons.json
   def index
-     @lessons = Lesson.all
+    #@course= Course.find(params[:course_id])
+    @lessons = @course.lessons
   end
 
   # GET /lessons/1
@@ -25,7 +26,7 @@ class LessonsController < ApplicationController
   # POST /lessons
   # POST /lessons.json
   def create
-    @lesson = Lesson.new(lesson_params)
+    @lesson = @course.lessons.new(lesson_params)
 
     respond_to do |format|
       if @lesson.save
@@ -36,6 +37,15 @@ class LessonsController < ApplicationController
         format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  def relocate
+    @slide= @lesson.slides.where(position: params[:old].to_i + 1).first
+    @slide.set_list_position(params[:new].to_i + 1)
+    #@lesson.save_all
+    #puts(@slide.position)
+    
+    render :nothing => true
   end
 
   # PATCH/PUT /lessons/1

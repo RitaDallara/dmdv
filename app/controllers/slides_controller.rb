@@ -6,7 +6,7 @@ class SlidesController < ApplicationController
   # GET /slides
   # GET /slides.json
   def index
-    @slides = Slide.all
+    @slides = @lesson.slides
   end
 
   # GET /slides/1
@@ -26,13 +26,13 @@ class SlidesController < ApplicationController
   # POST /slides
   # POST /slides.json
   def create
-    @slide = Slide.new(slide_params)
+    @slide = @lesson.slides.new(slide_params)
     
     #@slide.position = 1
 
     respond_to do |format|
       if @slide.save
-        format.html { redirect_to(course_lesson_slide_path(@course,@lesson,@slide), notice: 'Slide was successfully created.') }
+        format.html { redirect_to(course_lesson_slides_path(@course,@lesson)) }
         format.json { render action: 'show', status: :created, location: @slide }
       else
         format.html { render action: 'new' }
@@ -55,6 +55,8 @@ class SlidesController < ApplicationController
     end
   end
 
+
+  
   # DELETE /slides/1
   # DELETE /slides/1.json
   def destroy
@@ -68,7 +70,7 @@ class SlidesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_slide
-      @slide = Slide.find(params[:id])
+	@slide ||= Slide.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
