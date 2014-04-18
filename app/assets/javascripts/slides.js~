@@ -1,11 +1,24 @@
 
 $(document).ready(function(){
+
+var old_index;
+var new_index;
     $('.sortable').sortable();
+ $('.sortable').bind('dragstart',function(event){
+//alert("ciao" + event.target.innerHTML.index());
+alert("ciao" + $(event.target).index());
+
+old_index = $(event.target).index();
+});
   
 
-    $('.sortable').sortable().bind('sortupdate',function(){
+    $('.sortable').sortable().bind('sortupdate',function(e,ui){
 
-  alert("index" + $(this).data());
+    alert("ui" + ui.item.index());
+new_index = ui.item.index();
+
+$.ajax({
+url:
  });
 });
 
