@@ -1,4 +1,6 @@
 Dmdv::Application.routes.draw do
+  #resources :extras
+
   mount Ckeditor::Engine => '/ckeditor'
   resources :users
  
@@ -7,7 +9,9 @@ Dmdv::Application.routes.draw do
   end
   resources :courses do
       resources :lessons do
-	  resources :slides
+	  resources :slides do
+	      resources :extras
+           end
 	  #get "relocate" => '#relocate'
       end
   end

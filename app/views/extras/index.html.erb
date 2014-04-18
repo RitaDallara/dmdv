@@ -1,0 +1,27 @@
+<h1>Listing extras</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @extras.each do |extra| %>
+      <tr>
+        <td><%= extra.title %></td>
+        <td><%= link_to 'Show', [@course,@lesson,@slide,extra] %></td>
+        <td><%= link_to 'Edit', edit_course_lesson_slide_extra_path(@course,@lesson,@slide,extra) %></td>
+        <td><%= link_to 'Destroy', [@course,@lesson,@slide,extra], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Extra', new_course_lesson_slide_extra_path(@course,@lesson,@slide) %>

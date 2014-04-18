@@ -4,12 +4,5 @@ class Lesson < ActiveRecord::Base
   
   belongs_to :course
   
-  def save_all
-    slides = Slide.where(lesson_id: id)
-    slides.each do |s|
-      s.save!
-    end
-  end
-  
   
 end
