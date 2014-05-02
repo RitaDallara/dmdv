@@ -6,7 +6,11 @@ class SlidesController < ApplicationController
   # GET /slides
   # GET /slides.json
   def index
-    @slides = @lesson.slides
+    if params[:parent_id]
+      @slides = @lesson.slides.where(:ancestry => params[:parent_id])
+    else
+      @slides = @lesson.slides.where(:ancestry => nil)
+    end
   end
 
   # GET /slides/1
@@ -16,9 +20,17 @@ class SlidesController < ApplicationController
 
   # GET /slides/new
   def new
-    @slide = Slide.new(:lesson => @lesson)
+    #@slide = Slide.new(:lesson => @lesson, :parent_id => params[:parent_id])
+    #@slide = Slide.new(slide_params)
+    if params[:parent_id]
+      @slide = Slide.find(params[:parent_id]).children.new(:lesson => @lesson)
+    else
+      @slide = Slide.new(:lesson => @lesson)
+    end
+      
   end
 
+    
   # GET /slides/1/edit
   def edit
   end
@@ -26,7 +38,12 @@ class SlidesController < ApplicationController
   # POST /slides
   # POST /slides.json
   def create
-    @slide = @lesson.slides.new(slide_params)
+    if params[:parent_id]
+      @slide = Slide.find(params[:parent_id]).children.new(:lesson => @lesson)
+    else
+      @slide = @lesson.slides.new(slide_params)
+    end
+   # @slide.extra_id= params[:extra_id]
     
     #@slide.position = 1
 
@@ -75,7 +92,7 @@ class SlidesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def slide_params
-      params.require(:slide).permit(:lesson_id, :title, :content, :previous, :next, :number, :position)
+      params.require(:slide).permit(:lesson_id, :title, :content, :previous, :next, :number, :position, :extra_id, :parent_id)
     end
     
         

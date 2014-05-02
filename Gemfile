@@ -51,6 +51,9 @@ gem 'ckeditor'
 # Slide List
 gem 'acts_as_list'
 
+# Tree hierarchy
+gem 'ancestry'
+
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

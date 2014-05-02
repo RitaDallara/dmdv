@@ -14,6 +14,7 @@
     <% @extras.each do |extra| %>
       <tr>
         <td><%= extra.title %></td>
+        <td><%= link_to 'Add slide', new_course_lesson_slide_extra_slide_path(@course,@lesson,@slide,extra) %>
         <td><%= link_to 'Show', [@course,@lesson,@slide,extra] %></td>
         <td><%= link_to 'Edit', edit_course_lesson_slide_extra_path(@course,@lesson,@slide,extra) %></td>
         <td><%= link_to 'Destroy', [@course,@lesson,@slide,extra], method: :delete, data: { confirm: 'Are you sure?' } %></td>
