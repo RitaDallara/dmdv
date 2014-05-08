@@ -40,7 +40,12 @@ class LessonsController < ApplicationController
   end
   
   def relocate
-    @slide= @lesson.slides.where(position: params[:old].to_i + 1).first
+    if params[:parent_id]
+      @slide= @lesson.slides.where(ancestry: params[:parent_id], position: params[:old].to_i + 1).first
+    else
+      @slide= @lesson.slides.where(position: params[:old].to_i + 1).first
+    end
+   # @slide= @lesson.slides.find(params[:slide_id])
     @slide.set_list_position(params[:new].to_i + 1)
     #@lesson.save_all
     #puts(@slide.position)

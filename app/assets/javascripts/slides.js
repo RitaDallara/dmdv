@@ -1,5 +1,5 @@
 
-$(document).ready(function(){
+$(window).bind('page:change', function(){
   console.log("document is ready");
   var old_index;
   var new_index;
@@ -18,8 +18,17 @@ $(document).ready(function(){
 
     course_id= location.toString().split("/")[4];
     lesson_id= location.toString().split("/")[6];
-    //console.log("course id vale " + course_id + " e lesson id vale " + lesson_id);
     var data= 'course_id=' + course_id + '&id=' + lesson_id + '&old=' + old_index + '&new=' + new_index;
+    if(location.toString().indexOf('?') >=0)
+    {
+      parent_id=location.toString().split("?")[1].split("=")[1];
+      console.log("course id vale " + course_id + " e lesson id vale " + lesson_id+ " e parent_id vale" + parent_id);
+      
+      data=data+'&parent_id=' + parent_id;
+    }
+      console.log("course id vale " + course_id + " e lesson id vale " + lesson_id);
+
+    
     //console.log(data);
     $.ajax({
       url: "relocate",
