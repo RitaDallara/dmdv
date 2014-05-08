@@ -27,3 +27,17 @@
 
 <%= link_to 'Edit', edit_course_lesson_slide_path(@course,@lesson,@slide) %> |
 <%= link_to 'Back', course_lesson_slides_path(@course,@lesson) %>
+
+<% if not @slide.first? %>
+
+  <%= link_to 'Previous', course_lesson_slide_path(@course,@lesson, @slide.higher_item) %>
+  
+<% end %>
+
+<% if not @slide.last? %>
+
+  <%= link_to 'Next', course_lesson_slide_path(@course,@lesson, @slide.lower_item) %>
+  
+<% end %>
+
+

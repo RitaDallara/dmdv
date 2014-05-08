@@ -36,7 +36,7 @@ $(window).bind('page:change', function(){
       //context: document.body
     }).done(function(){
 	//$( this ).addClass( "done" );
-	alert("DATI INVIATI");
+	//alert("DATI INVIATI");
     });
 });
 

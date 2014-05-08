@@ -20,7 +20,6 @@
 <% @slides.order("position").each do |slide| %>
 	  <section style=" -moz-transform: scale(0.5);">
 	  <li><%= raw slide.content %></li>
-	  <li><%= slide.position %></li>
 	  <li><%= link_to 'Destroy', [@course,@lesson,slide], method: :delete, data: { confirm: 'Are you sure?' } %></li>
 	  <li><%= link_to 'Add extra', new_course_lesson_slide_path(:parent_id => slide.id) %></li>
 	  <li><%= link_to 'Show extras', course_lesson_slides_path(:parent_id => slide.id) %></li>
