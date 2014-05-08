@@ -1,17 +1,10 @@
 <h1>Listing slides</h1>
 
+
+<%= link_to 'Presentation', course_lesson_slide_path(@course,@lesson,@lesson.slides.first) %>
 <table>
   <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th>Previous</th>
-      <th>Next</th>
-      <th>Number</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+
   </thead>
 
 
@@ -21,18 +14,17 @@
 	  <section style=" -moz-transform: scale(0.5);">
 	  <li><%= raw slide.content %></li>
 	  <li><%= link_to 'Destroy', [@course,@lesson,slide], method: :delete, data: { confirm: 'Are you sure?' } %></li>
-	  <li><%= link_to 'Add extra', new_course_lesson_slide_path(:parent_id => slide.id) %></li>
-	  <li><%= link_to 'Show extras', course_lesson_slides_path(:parent_id => slide.id) %></li>
+	  <% if slide.root? %>
+	    <li><%= link_to 'Add extra', new_course_lesson_slide_path(:parent_id => slide.id) %></li>
+	  <% end %> 
+	  <% if slide.has_children? %>
+	    <li><%= link_to 'Show extras', course_lesson_slides_path(:parent_id => slide.id) %></li>
+	  <% end %>
 	  </section>
 	   
     <% end %>
     
 </ul>
-
-<!--script>
-    $('.sortable').sortable();
-</script-->
-
 
 
 
@@ -41,4 +33,6 @@
   <%= link_to 'New Slide', new_course_lesson_slide_path(@course,@lesson) %>
 <% else %>
   <%= link_to 'Add extra', new_course_lesson_slide_path(:parent_id => @slides.first.parent_id) %>
+  <br>
+  <%= link_to 'Back to main thread', course_lesson_slides_path(@course,@lesson) %>
 <% end %>

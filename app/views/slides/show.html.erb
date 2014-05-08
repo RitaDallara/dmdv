@@ -40,4 +40,15 @@
   
 <% end %>
 
+<% if not @slide.root? %>
+
+  <%= link_to 'Root', course_lesson_slide_path(@course,@lesson, @slide.parent) %>
+  
+<% end %>
+
+<% if @slide.has_children? %>
+
+  <%= link_to 'Extra', course_lesson_slide_path(@course,@lesson, @slide.children.first) %>
+  
+<% end %>
 
