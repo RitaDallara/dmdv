@@ -9,11 +9,7 @@ Dmdv::Application.routes.draw do
   end
   resources :courses do
       resources :lessons do
-	  resources :slides do
-	      resources :extras do
-		resources :slides
-	      end
-           end
+	  resources :slides
 	  #get "relocate" => '#relocate'
       end
   end
