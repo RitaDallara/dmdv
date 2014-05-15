@@ -1,7 +1,9 @@
 <h1>Listing slides</h1>
 
+<% if not @lesson.slides.empty? %>
+  <%= link_to 'Presentation', course_lesson_slide_path(@course,@lesson,@lesson.slides.first) %>
+<% end %>
 
-<%= link_to 'Presentation', course_lesson_slide_path(@course,@lesson,@lesson.slides.first) %>
 <table>
   <thead>
 
@@ -11,17 +13,18 @@
 
 <ul class="sortable">
 <% @slides.order("position").each do |slide| %>
-	  <section style=" -moz-transform: scale(0.5);">
-	  <li><%= raw slide.content %></li>
-	  <li><%= link_to 'Destroy', [@course,@lesson,slide], method: :delete, data: { confirm: 'Are you sure?' } %></li>
-	  <% if slide.root? %>
-	    <li><%= link_to 'Add extra', new_course_lesson_slide_path(:parent_id => slide.id) %></li>
-	  <% end %> 
-	  <% if slide.has_children? %>
-	    <li><%= link_to 'Show extras', course_lesson_slides_path(:parent_id => slide.id) %></li>
-	  <% end %>
-	  </section>
-	   
+<section style=" -moz-transform: scale(0.5);">
+<li><%= raw slide.content %></li>
+<li><%= slide.position %></li>
+<li><%= link_to 'Destroy', [@course,@lesson,slide], method: :delete, data: { confirm: 'Are you sure?' } %></li>
+<% if slide.root? %>
+<li><%= link_to 'Add extra', new_course_lesson_slide_path(:parent_id => slide.id) %></li>
+<% end %>
+<% if slide.has_children? %>
+<li><%= link_to 'Show extras', course_lesson_slides_path(:parent_id => slide.id) %></li>
+<% end %>
+</section>
+
     <% end %>
     
 </ul>
@@ -29,7 +32,7 @@
 
 
 <br>
-<% if @slides.first.root? %>
+<% if @lesson.slides.empty? or @slides.first.root? %>
   <%= link_to 'New Slide', new_course_lesson_slide_path(@course,@lesson) %>
 <% else %>
   <%= link_to 'Add extra', new_course_lesson_slide_path(:parent_id => @slides.first.parent_id) %>

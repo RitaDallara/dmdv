@@ -4,9 +4,9 @@ class Slide < ActiveRecord::Base
   
   belongs_to :lesson
   
-  acts_as_list scope: :lesson
+  #acts_as_list scope: :lesson
   
-  acts_as_list scope: [:ancestry]
+  acts_as_list scope: [:lesson, :ancestry]
   
   #default_scope order: :position
   
