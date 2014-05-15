@@ -7,8 +7,15 @@ $(window).bind('page:change', function(){
   
   $('.sortable').bind('dragstart',function(event){
     //alert("ciao" + event.target.innerHTML.index());
-
-    old_index = $(event.target).index();
+    if( $(event.target).is('img'))
+    {
+      old_index = $(event.target).parent().parent().parent().index();
+      console.log(" indice figura : " + old_index);
+    }
+    else
+    {
+      old_index = $(event.target).index();
+    }
   });
   
 

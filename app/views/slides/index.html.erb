@@ -4,30 +4,31 @@
   <%= link_to 'Presentation', course_lesson_slide_path(@course,@lesson,@lesson.slides.first) %>
 <% end %>
 
-<table>
-  <thead>
-
-  </thead>
 
 
 
-<ul class="sortable">
+
+<ol class="sortable">
 <% @slides.order("position").each do |slide| %>
-<section style=" -moz-transform: scale(0.5);">
-<li><%= raw slide.content %></li>
-<li><%= slide.position %></li>
-<li><%= link_to 'Destroy', [@course,@lesson,slide], method: :delete, data: { confirm: 'Are you sure?' } %></li>
+<div style=" border:5px solid black; -moz-transform: scale(0.5); width: 30%;">
+
+
+<li><%= raw slide.content %>
+<%= slide.position %>
+<br>
+<%= link_to 'Destroy', [@course,@lesson,slide], method: :delete, data: { confirm: 'Are you sure?' } %>
 <% if slide.root? %>
-<li><%= link_to 'Add extra', new_course_lesson_slide_path(:parent_id => slide.id) %></li>
+<%= link_to 'Add extra', new_course_lesson_slide_path(:parent_id => slide.id) %>
 <% end %>
 <% if slide.has_children? %>
-<li><%= link_to 'Show extras', course_lesson_slides_path(:parent_id => slide.id) %></li>
+<%= link_to 'Show extras', course_lesson_slides_path(:parent_id => slide.id) %>
 <% end %>
-</section>
+</li>
+</div>
 
     <% end %>
     
-</ul>
+</ol>
 
 
 
