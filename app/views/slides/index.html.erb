@@ -10,13 +10,21 @@
 
 <ol class="sortable">
 <% @slides.order("position").each do |slide| %>
-<div style=" border:5px solid black; -moz-transform: scale(0.5); width: 30%;">
+<div style=" border:5px solid black; -moz-transform: scale(0.5);">
 
 
-<li><%= raw slide.content %>
+<li>
+
+  <strong><%= slide.title %></strong>
+<br>
+
+<%= raw slide.content %>
 <%= slide.position %>
 <br>
+<%= link_to 'Show', [@course,@lesson,slide] %>
+<%= link_to 'Edit', edit_course_lesson_slide_path(@course,@lesson,slide) %>
 <%= link_to 'Destroy', [@course,@lesson,slide], method: :delete, data: { confirm: 'Are you sure?' } %>
+<br>
 <% if slide.root? %>
 <%= link_to 'Add extra', new_course_lesson_slide_path(:parent_id => slide.id) %>
 <% end %>

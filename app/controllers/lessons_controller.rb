@@ -58,7 +58,7 @@ class LessonsController < ApplicationController
   def update
     respond_to do |format|
       if @lesson.update(lesson_params)
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully updated.' }
+        format.html { redirect_to [@course,@lesson], notice: 'Lesson was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

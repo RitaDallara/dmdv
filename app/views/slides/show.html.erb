@@ -1,48 +1,44 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @slide.title %>
+<div>
+
+<p id="title">
+  <strong><%= @slide.title %></strong>
 </p>
 
-<p>
-  <strong>Content:</strong>
-  <%= raw @slide.content %>
-</p>
+</div>
 
-<p>
-  <strong>Previous:</strong>
-  <%= @slide.previous %>
-</p>
+<div id="content"><%= raw @slide.content %>
+<br>
+<% if @slide.has_children? %>
 
-<p>
-  <strong>Next:</strong>
-  <%= @slide.next %>
-</p>
+  <strong><p style="font-size: 30px;"><%= link_to 'Approfondimento', course_lesson_slide_path(@course,@lesson, @slide.children.first) %></p></strong>
+  
+<% end %>
+</div>
 
-<p>
-  <strong>Position:</strong>
-  <%= @slide.position %>
-</p>
+
+
+ <p id="menu-bottom-p">
 
 <%= link_to 'Edit', edit_course_lesson_slide_path(@course,@lesson,@slide) %> |
-<%= link_to 'Back', course_lesson_slides_path(@course,@lesson) %>
+<%= link_to 'Back', course_lesson_slides_path(@course,@lesson) %> |
 
 <% if not @slide.first? %>
 
-  <%= link_to 'Previous', course_lesson_slide_path(@course,@lesson, @slide.higher_item) %>
+  <%= link_to 'Previous', course_lesson_slide_path(@course,@lesson, @slide.higher_item) %> |
   
 <% end %>
 
 <% if not @slide.last? %>
 
-  <%= link_to 'Next', course_lesson_slide_path(@course,@lesson, @slide.lower_item) %>
+  <%= link_to 'Next', course_lesson_slide_path(@course,@lesson, @slide.lower_item) %> |
   
 <% end %>
 
 <% if not @slide.root? %>
 
-  <%= link_to 'Root', course_lesson_slide_path(@course,@lesson, @slide.parent) %>
+  <%= link_to 'Root', course_lesson_slide_path(@course,@lesson, @slide.parent) %> |
   
 <% end %>
 
@@ -51,4 +47,9 @@
   <%= link_to 'Extra', course_lesson_slide_path(@course,@lesson, @slide.children.first) %>
   
 <% end %>
+
+</p>
+
+
+
 

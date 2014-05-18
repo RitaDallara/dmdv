@@ -1,0 +1,27 @@
+
+
+#menu-bottom-p
+{
+  position: fixed; 
+  bottom: 0; 
+  width:100%; 
+  text-align: center; 
+
+  
+  font-size: 30px;
+  /*height: 60px;*/
+}
+
+#title
+{
+  
+  font-size: 50px;
+  text-align:center; 
+  
+}
+
+#content > p
+{
+  font-size : 20px;
+}
+
