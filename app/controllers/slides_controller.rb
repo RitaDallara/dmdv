@@ -16,6 +16,15 @@ class SlidesController < ApplicationController
   # GET /slides/1
   # GET /slides/1.json
   def show
+    if params[:download]
+    #send_data(render_to_string, :filename => "object.html", :type => "text/html")
+      content = render_to_string
+      File.open("public/tmp/slide1.html", "w+") do |f|
+      f.write(content)
+      end
+  else
+    # render normally
+  end
   end
 
   # GET /slides/new

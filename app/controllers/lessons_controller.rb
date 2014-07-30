@@ -1,6 +1,9 @@
 class LessonsController < ApplicationController
   before_action :set_course
   before_action :set_lesson, only: [:show, :edit, :update, :destroy, :relocate]
+  
+  #require 'rubygems'
+  #require 'zip'
 
   # GET /lessons
   # GET /lessons.json
@@ -12,6 +15,37 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
+      if params[:download]
+	
+	dir="#{Rails.root}/public/tmp/lesson_#{@lesson.id}/"
+
+
+	Dir.mkdir(dir) unless File.directory?(dir)
+	
+	@lesson.slides.each do |s|
+	  #content = render_to_string(:controller => "slides", :action => "show", :slide_id => s.id)
+	  File.open("#{Rails.root}/public/tmp/lesson_#{@lesson.id}/#{s.position}_#{@lesson.title}.html", "w+") do |f|
+	   f.write s.content
+	  end
+	end
+     
+   
+      zip_name = "#{Rails.root}/public/tmp/lesson_#{@lesson.id}.zip"
+      
+      Zip::File.open(zip_name,Zip::File::CREATE) do |zipfile|
+	Dir[File.join(dir,'**','**')].each do |file|
+	 zipfile.add(file.sub(dir, ''),file)
+	end
+       end
+      end
+      
+	  
+      send_file zip_name, :type => 'application/zip', :disposition => 'attachment', :filename => "lesson_#{@lesson.id}.zip", :stream => false
+      
+      FileUtils.remove_dir(dir,true)
+      #File.delete(zip_name)
+      
+            
   end
 
   # GET /lessons/new

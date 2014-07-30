@@ -1,5 +1,6 @@
 
-$(window).bind('page:change', function(){
+//$(window).bind('page:change', function(){
+$(document).ready(function(){
   console.log("document is ready");
   var old_index;
   var new_index;

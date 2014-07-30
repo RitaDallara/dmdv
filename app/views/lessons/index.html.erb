@@ -14,6 +14,7 @@
     <% @lessons.each do |lesson| %>
       <tr>
         <td><%= link_to lesson.title, course_lesson_slides_path(@course,lesson) %></td>
+        <td><%= link_to 'download this lesson', course_lesson_path(@course,lesson, :download => true) %></td>
         <td><%= link_to 'Show', [@course,lesson] %></td>
         <td><%= link_to 'Edit', edit_course_lesson_path(@course,lesson) %></td>
         <td><%= link_to 'Destroy', [@course,lesson], method: :delete, data: { confirm: 'Are you sure?' } %></td>
