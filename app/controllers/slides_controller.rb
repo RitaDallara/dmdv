@@ -24,9 +24,11 @@ class SlidesController < ApplicationController
       Dir.mkdir(dir) unless File.directory?(dir)
       @lesson.slides.each do |s|
 	@slide = s
-	content = render_to_string
+	content = render_to_string :layout => "download"
 	File.open("public/tmp/#{ip_client}/#{s.id}_#{@lesson.title}.html", "w+") do |f|
+	 content = content.gsub('/ckeditor_assets','public/ckeditor_assets')
 	  f.write(content)
+	  
 	end
       end
       
@@ -35,6 +37,14 @@ class SlidesController < ApplicationController
 	Dir[File.join(dir,'**','**')].each do |file|
 	zipfile.add(file.sub(dir, ''),file)
 	end
+	Dir[File.join("app/assets/stylesheets/",'**','**')].each do |file|
+	zipfile.add(file.sub(dir, ''),file)
+	end
+	
+	Dir[File.join("public/ckeditor_assets/",'**','**')].each do |file|
+	zipfile.add(file.sub(dir, ''),file)
+	end
+	
       end
 
       
