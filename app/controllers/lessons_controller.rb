@@ -16,33 +16,29 @@ class LessonsController < ApplicationController
   # GET /lessons/1.json
   
   
+  
   # lesson download
   def show
       if params[:download]
 	
-	if not File.exist?("#{Rails.root}/public/tmp/lesson_#{@lesson.id}.zip")
-	  ip_client = request.remote_ip
-	  dir="#{Rails.root}/public/tmp/#{ip_client}/"
-	  Dir.mkdir(dir) unless File.directory?(dir)
-	  @lesson.slides.each do |s|
-	    File.open("#{Rails.root}/public/tmp/#{ip_client}/#{s.position}_#{@lesson.title}.html", "w+") do |f|
-	    f.write s.content
-	    end
-	  end
+# 	if not File.exist?("#{Rails.root}/public/tmp/lesson_#{@lesson.id}.zip")
+# 	  ip_client = request.remote_ip
+# 	  dir="#{Rails.root}/public/tmp/#{ip_client}/"
+# 	  Dir.mkdir(dir) unless File.directory?(dir)
+	  redirect_to :controller => "slides", :action => "slide_content",:course_id => @course.id, :lesson_id => @lesson.id
           
-	  zip_name = "#{Rails.root}/public/tmp/lesson_#{@lesson.id}.zip"
-	  Zip::File.open(zip_name,Zip::File::CREATE) do |zipfile|
-	    Dir[File.join(dir,'**','**')].each do |file|
-	    zipfile.add(file.sub(dir, ''),file)
-	    end
-	  end
+# 	  zip_name = "#{Rails.root}/public/tmp/lesson_#{@lesson.id}.zip"
+# 	  Zip::File.open(zip_name,Zip::File::CREATE) do |zipfile|
+# 	    Dir[File.join(dir,'**','**')].each do |file|
+# 	    zipfile.add(file.sub(dir, ''),file)
+# 	    end
+#	  end
 	end
 	  
-	send_file "#{Rails.root}/public/tmp/lesson_#{@lesson.id}.zip", :type => 'application/zip', :disposition => 'attachment', :filename => "lesson_#{@lesson.id}.zip", :stream => false
-      
-	FileUtils.remove_dir(dir,true)
-	
-      end
+# 	send_file "#{Rails.root}/public/tmp/lesson_#{@lesson.id}.zip", :type => 'application/zip', :disposition => 'attachment', :filename => "lesson_#{@lesson.id}.zip", :stream => false
+#       
+# 	FileUtils.remove_dir(dir,true)
+
 
   end
 

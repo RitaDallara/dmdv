@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<div>
+
+<p id="title">
+  <strong><%= @slide.title %></strong>
+</p>
+
+</div>
+
+<div id="content"><%= raw @slide.content %>
+<br>
+<% if @slide.has_children? %>
+
+  <strong><p style="font-size: 30px;"><%= link_to 'Approfondimento', "#{@slide.children.first.id}_#{@lesson.title}.html" %></p></strong>
+  
+<% end %>
+</div>
+
+
+<div>
+ <p id="menu-bottom-p">
+
+
+| <% if not @slide.first? %>
+
+  <%= link_to 'Previous', "#{@slide.higher_item.id}_#{@lesson.title}.html" %> |
+  
+<% end %>
+
+<% if not @slide.last? %>
+
+  <%= link_to 'Next',"#{@slide.lower_item.id}_#{@lesson.title}.html" %> |
+  
+<% end %>
+
+<% if not @slide.root? %>
+
+  <%= link_to 'Root', "#{@slide.parent.id}_#{@lesson.title}.html" %> |
+  
+<% end %>
+
+<% if @slide.has_children? %>
+
+  <%= link_to 'Extra', "#{@slide.children.first.id}_#{@lesson.title}.html" %>
+  
+<% end %>
+
+
+</p>
+
+</div>
+

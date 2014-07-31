@@ -15,6 +15,38 @@ class SlidesController < ApplicationController
 
   # GET /slides/1
   # GET /slides/1.json
+  
+  def slide_content
+   
+    if not File.exist?("#{Rails.root}/public/tmp/lesson_#{@lesson.id}.zip")
+      ip_client = request.remote_ip
+      dir="#{Rails.root}/public/tmp/#{ip_client}/"
+      Dir.mkdir(dir) unless File.directory?(dir)
+      @lesson.slides.each do |s|
+	@slide = s
+	content = render_to_string
+	File.open("public/tmp/#{ip_client}/#{s.id}_#{@lesson.title}.html", "w+") do |f|
+	  f.write(content)
+	end
+      end
+      
+      zip_name = "#{Rails.root}/public/tmp/lesson_#{@lesson.id}.zip"
+      Zip::File.open(zip_name,Zip::File::CREATE) do |zipfile|
+	Dir[File.join(dir,'**','**')].each do |file|
+	zipfile.add(file.sub(dir, ''),file)
+	end
+      end
+
+      
+    end
+    
+     
+    send_file "#{Rails.root}/public/tmp/lesson_#{@lesson.id}.zip", :type => 'application/zip', :disposition => 'attachment', :filename => "lesson_#{@lesson.id}.zip", :stream => false
+      
+    FileUtils.remove_dir(dir,true)
+
+  end
+    
   def show
     if params[:download]
     #send_data(render_to_string, :filename => "object.html", :type => "text/html")

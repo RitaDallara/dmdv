@@ -7,6 +7,8 @@ Dmdv::Application.routes.draw do
  scope "/courses/(:id)/lessons/(:id)/" do
 	get "relocate" => 'lessons#relocate'
   end
+  
+  get "/slides/slide_content" => 'slides#slide_content'
   resources :courses do
       resources :lessons do
 	  resources :slides
